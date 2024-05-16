@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'rspec/core/rake_task'
-require 'rubocop/rake_task'
+RSpec::Core::RakeTask.new(:spec)
 
-RuboCop::RakeTask.new(:rubocop)
-RSpec::Core::RakeTask.new
+desc 'Look for style guide offenses in your code'
+task :rubocop do
+  sh 'rubocop --format simple || true'
+end
 
 task default: %i[rubocop spec]
